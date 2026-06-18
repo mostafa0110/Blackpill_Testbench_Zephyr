@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blackpill-testbench"
+version = "0.1.0"
+description = "Host-side Python driver for the STM32F401 Blackpill HIL testbench"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = ["pyserial>=3.5"]
+
+[project.optional-dependencies]
+test = ["robotframework>=6.0"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["blackpill_testbench*"]

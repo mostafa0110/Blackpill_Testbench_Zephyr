@@ -1,0 +1,30 @@
+# ---- Zephyr / west build ----
+build/
+*.bin
+*.elf
+*.hex
+*.map
+.west/
+zephyr-ws/
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+
+# ---- Robot Framework ----
+output.xml
+log.html
+report.html
+*.robot.lock
+
+# ---- Editor / OS ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

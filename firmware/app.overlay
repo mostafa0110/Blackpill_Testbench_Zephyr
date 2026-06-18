@@ -1,0 +1,45 @@
+/*
+ * Testbench logical pin map for the STM32F401 Blackpill.
+ * Physical pins -> logical aliases consumed by src/tb_shell.c via the
+ * "zephyr,user" node. See docs/Hardware_Pinout.md for the authoritative map.
+ *
+ * TODO(firmware/Mostafa): verify pinctrl groups for USART2, TIM1, and ADC1
+ * against your board variant (blackpill_f401cc / blackpill_f401ce).
+ */
+
+/ {
+    zephyr,user {
+        /* Digital outputs: tb_out_1..4  (PA4, PA5, PA6, PA7) */
+        tb-out-gpios = <&gpioa 4 GPIO_ACTIVE_HIGH>,
+                       <&gpioa 5 GPIO_ACTIVE_HIGH>,
+                       <&gpioa 6 GPIO_ACTIVE_HIGH>,
+                       <&gpioa 7 GPIO_ACTIVE_HIGH>;
+
+        /* Digital inputs: tb_in_1..4  (PB12, PB13, PB14, PB15) */
+        tb-in-gpios = <&gpiob 12 GPIO_ACTIVE_HIGH>,
+                      <&gpiob 13 GPIO_ACTIVE_HIGH>,
+                      <&gpiob 14 GPIO_ACTIVE_HIGH>,
+                      <&gpiob 15 GPIO_ACTIVE_HIGH>;
+
+        /* Analog inputs: tb_adc_1..2 (PA0 = ADC1_IN0, PA1 = ADC1_IN1) */
+        io-channels = <&adc1 0>, <&adc1 1>;
+
+        /* PWM outputs: tb_pwm_1..2 (PA8 = TIM1_CH1, PA9 = TIM1_CH2) */
+        pwms = <&pwm1 1 PWM_HZ(1000) PWM_POLARITY_NORMAL>,
+               <&pwm1 2 PWM_HZ(1000) PWM_POLARITY_NORMAL>;
+    };
+};
+
+/* TODO(firmware/Mostafa): enable ADC1 channels + TIM1 PWM with correct pinctrl.
+ * Sketch only - confirm node labels exist for your board's DTS.
+ *
+ * &adc1 {
+ *     status = "okay";
+ *     #address-cells = <1>;
+ *     #size-cells = <0>;
+ *     channel@0 { reg = <0>; zephyr,gain = "ADC_GAIN_1";
+ *         zephyr,reference = "ADC_REF_INTERNAL"; zephyr,resolution = <12>; };
+ *     channel@1 { reg = <1>; zephyr,gain = "ADC_GAIN_1";
+ *         zephyr,reference = "ADC_REF_INTERNAL"; zephyr,resolution = <12>; };
+ * };
+ */
